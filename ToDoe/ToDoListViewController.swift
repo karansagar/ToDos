@@ -46,8 +46,32 @@ class ToDoListViewController: UITableViewController {
         
         // To Avoid highlight on grey & Should be flash grey and go back to white
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
+    //MARK:- Add New Item button
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        // UI alert controller to show. have text field and write quick to do list and append to itemArray
+        let alert = UIAlertController(title: "Add To-Do Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            // what will hepen once user will click add item on UIAlert
+            
+            // Still item will not be append on the row
+            self.itemArray.append(textField.text!)
+            
+            // majic method reload data. this reload and recount and add new item :)
+            self.tableView.reloadData()
+        }
+        
+        // add textField on UI Alert
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create New Item"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
 }
-
