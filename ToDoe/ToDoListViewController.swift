@@ -16,7 +16,7 @@ class ToDoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     //MARK: - TableView DataSource Methods
     // Number of rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,6 +30,24 @@ class ToDoListViewController: UITableViewController {
         
         return cell
     }
-
+    
+    //MARK:- TableView Delegate Method (Did SelectRow)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Checkmark next to cells which you have selected // ACCESSORY
+        // TableView.cellForRow(at: indexPath)?.accessoryType = .checkmark // it will be default all checked there will be no ways todeselect
+        
+        // Add and Remove checkmark ... Click once ->(checkmark) Click again ->(Remove checkmark)
+        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        } else {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
+        
+        // To Avoid highlight on grey & Should be flash grey and go back to white
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
 }
 
