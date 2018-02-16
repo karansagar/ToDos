@@ -12,9 +12,15 @@ class ToDoListViewController: UITableViewController {
     
     // 2. Brand new item array in this array some hardcorded items on startup
     var itemArray = ["Find Mike", "Buy Eggs", "Call Friends", "Complete Course"]
+    let defaults = UserDefaults.standard
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+            itemArray = items
+        }
     }
     
     //MARK: - TableView DataSource Methods
@@ -60,6 +66,10 @@ class ToDoListViewController: UITableViewController {
             
             // Still item will not be append on the row
             self.itemArray.append(textField.text!)
+            
+            // user defaults
+            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
+            
             
             // majic method reload data. this reload and recount and add new item :)
             self.tableView.reloadData()
